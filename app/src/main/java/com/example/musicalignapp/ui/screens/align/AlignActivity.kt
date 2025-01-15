@@ -73,6 +73,7 @@ import com.example.musicalignapp.ui.core.AlignedElementId
 import com.example.musicalignapp.ui.core.MyJavaScriptInterface
 import com.example.musicalignapp.ui.core.enums.AlignSaveType
 import com.example.musicalignapp.ui.core.enums.PlayModeEnum
+import com.example.musicalignapp.ui.screens.addfile.viewmodel.AddFileViewModel
 import com.example.musicalignapp.ui.screens.align.stylus.StylusState
 import com.example.musicalignapp.ui.screens.align.viewmodel.AlignViewModel
 import com.example.musicalignapp.ui.screens.home.HomeActivity
@@ -108,6 +109,7 @@ class AlignActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAlignBinding
     private lateinit var alignViewModel: AlignViewModel
     private lateinit var jsInterface: MyJavaScriptInterface
+    private lateinit var addFileViewModel: AddFileViewModel
     private lateinit var packageId: String
     private var isFinal = false
     private lateinit var dialogSettingsBinding: DialogAlignSettingsBinding
@@ -154,6 +156,7 @@ class AlignActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        addFileViewModel = ViewModelProvider(this)[AddFileViewModel::class.java]
         binding = ActivityAlignBinding.inflate(layoutInflater)
         dialogSettingsBinding = DialogAlignSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -219,6 +222,8 @@ class AlignActivity : AppCompatActivity() {
                 if(it.imageUrl.isNotBlank() && it.imageUrl != currentImageUrl || (it.imageUrl == currentImageUrl && it.file.isNotBlank() && it.file != currentFile)) {
                     numImageLoaded++
                     currentImageUrl = it.imageUrl
+                    val img = "$packageId.${it.systemNumber}"
+                    addFileViewModel.getSVGFromImage(img ?: "")
                     initComposeView(it.imageUrl, it.initDrawCoordinates)
                 }
 
