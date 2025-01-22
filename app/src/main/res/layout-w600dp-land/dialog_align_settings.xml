@@ -33,8 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/show_align_info"
-            android:textColor="@color/white"
-            android:onClick="showInfo" />
+            android:textColor="@color/white" />
 
         <Space
             android:layout_width="wrap_content"
@@ -126,6 +125,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/change_system"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnResetJson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_json"
             android:textColor="@color/white" />
 
         <Space

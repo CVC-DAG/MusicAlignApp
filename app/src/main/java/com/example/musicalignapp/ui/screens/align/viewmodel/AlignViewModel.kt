@@ -440,7 +440,7 @@ class AlignViewModel @Inject constructor(
 
             drawCoordinatesList.forEach { drawCoordinates ->
                 drawCoordinates?.let {
-                    var listFloats: List<Float> =
+                    val listFloats: List<Float> =
                         drawCoordinates.trim().split(",").filter { it.isNotBlank() }.map {
                             it.trim().toFloatOrNull()
                                 ?: throw IllegalArgumentException("Invalid float value: $it")
@@ -562,6 +562,30 @@ class AlignViewModel @Inject constructor(
             }
             return ""
         }
+    }
+
+    fun restartCurrentSystemAlignment() {
+        alignedNow.clear()
+        listAnnotations.removeIf { it.imageId == _uiState.value.currentImageId }
+        requestRendering(
+            StylusState(
+                path = createPath(mutableListOf()),
+            )
+        )
+        _uiState.update {
+            it.copy(
+                alignedElements = mutableListOf(),
+                lastElementId = "${CURRENT_ELEMENT_SEPARATOR}0",
+                highestElementId = "${CURRENT_ELEMENT_SEPARATOR}0",
+                listElementIds= emptyList()
+
+            )
+        }
+        _pathsToShow.update { "-1" }
+        _showPaths.update { true }
+        currentPath.clear()
+        currentPathCoordinates.clear()
+        currentPolygon.clear()
     }
 
     fun restartElementAlignment(alignedElementFixId: String, annotationId: String, onElementPrepared: () -> Unit) {

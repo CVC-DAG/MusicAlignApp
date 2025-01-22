@@ -168,6 +168,7 @@ class AlignActivity : AppCompatActivity() {
     private fun initUI() {
         showImageShimmer()
         intent.getStringExtra(ALIGN_EXTRA_PACKAGE_ID)?.let { packageId ->
+            addFileViewModel.getSVGFromImage("${packageId}.padding")
             this.packageId = packageId
             alignViewModel.getData(packageId)
         }
@@ -222,8 +223,6 @@ class AlignActivity : AppCompatActivity() {
                 if(it.imageUrl.isNotBlank() && it.imageUrl != currentImageUrl || (it.imageUrl == currentImageUrl && it.file.isNotBlank() && it.file != currentFile)) {
                     numImageLoaded++
                     currentImageUrl = it.imageUrl
-                    val img = "$packageId.${it.systemNumber}"
-                    addFileViewModel.getSVGFromImage(img ?: "")
                     initComposeView(it.imageUrl, it.initDrawCoordinates)
                 }
 
@@ -365,7 +364,7 @@ class AlignActivity : AppCompatActivity() {
 
             var componentSize by remember { mutableStateOf(IntSize.Zero) }
 
-            val midpoint: Offset = Offset(
+            val midpoint = Offset(
                 x = componentSize.width / 2f,
                 y = componentSize.height / 2f
             )
@@ -1017,6 +1016,31 @@ class AlignActivity : AppCompatActivity() {
                 val systemName = AlignUtils.getSystemName(packageId, systemNumber)
                 safeDialog.dismiss()
                 addPackageLauncher.launch(ReplaceSystemActivity.create(this@AlignActivity, systemName))
+            }
+
+            btnResetJson.setOnClickListener {
+                val dialogBinding = DialogWarningSelectorBinding.inflate(layoutInflater)
+                val alertDialog = AlertDialog.Builder(this@AlignActivity).apply {
+                    setView(dialogBinding.root)
+                }.create()
+                alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+                dialogBinding.apply {
+                    tvTitle.text = getString(R.string.remove_alignment_title)
+                    tvDescription.text = getString(R.string.reset_warning_dialog_description)
+                    btnAccept.text = getString(R.string.alert_dialog_accept)
+                    btnCancel.text = getString(R.string.alert_dialog_cancel)
+                    btnAccept.setOnClickListener {
+                        alertDialog.dismiss()
+                        alignViewModel.restartCurrentSystemAlignment()
+                    }
+                    btnCancel.setOnClickListener {
+                        alertDialog.dismiss()
+                    }
+                }
+
+                alertDialog.show()
+
             }
         }
 

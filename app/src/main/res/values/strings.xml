@@ -66,6 +66,7 @@
     <string name="counter_title">Numero de trazados a mostrar alrededor del elemento alineado</string>
     <string name="do_not_show_paths">Dejar de mostrar trazados de elementos alineados</string>
     <string name="change_system">Cambiar archivo de alineamiento</string>
+    <string name="reset_json">Borrar alineamiento del sistema actual</string>
     <string name="subtract_symbol">-</string>
     <string name="add_symbol">+</string>
 
@@ -80,12 +81,14 @@
     <string name="safe_delete_warning_dialog_title">Confirma borrado!</string>
     <string name="error_loading_package_dialog_title">Error!</string>
     <string name="confirm_saving_title">Confirma guardado!</string>
+    <string name="remove_alignment_title">Confirma borrado!</string>
 
     <string name="save_warning_dialog_description">Estás seguro que quieres salir sin guardar?</string>
     <string name="save_change_system_warning_dialog_description">Estás seguro que quieres cambiar de sistema sin guardar? \n Si no se guardan los cambios, estos desaparecerán</string>
     <string name="safe_delete_warning_dialog_description">Estás seguro que quieres borrar\neste proyecto?</string>
     <string name="safe_done_correctly_title">Cambios guardados correctamente</string>
     <string name="safe_done_correctly_description">Los cambios han sido guardados de \n forma correcta</string>
+    <string name="reset_warning_dialog_description">Estás seguro que quieres borrar el alineamiento del sistema actual? Sólo se borrarán la alineación hecha en este sistema.</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
